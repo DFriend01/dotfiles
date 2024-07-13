@@ -1,0 +1,11 @@
+[user]
+	name = Devon Friend
+	email = devon.friend45@gmail.com
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[core]
+	editor = vim
+[init]
+	defaultBranch = main
