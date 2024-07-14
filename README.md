@@ -10,6 +10,7 @@ My dotfiles for Ubuntu/Debian.
 sudo apt update && sudo apt install -y \
     bash-completion \
     curl \
+    git \
     gnupg2 \
     openssh-client \
     wget
