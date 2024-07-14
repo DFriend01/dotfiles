@@ -4,6 +4,29 @@ My dotfiles for Ubuntu/Debian.
 
 ## Required Setup Steps
 
+### General Dependencies
+
+```bash
+sudo apt update && sudo apt install -y \
+    bash-completion \
+    curl \
+    gnupg2 \
+    openssh-client \
+    wget
+```
+
+### Bash
+
+To get the terminal theme to work properly, it's recommended to install a [Nerd Font](https://www.nerdfonts.com/)
+(i.e. Fira Code Mono) and to configure the terminal to use that font.
+
+```bash
+# Install oh-my-posh
+# https://ohmyposh.dev/
+mkdir -p ${HOME}/.local/bin && \
+curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ${HOME}/.local/bin
+```
+
 ### Git
 
 ```bash
@@ -32,7 +55,15 @@ sudo apt install neovim
 
 # Install vim-plug for neovim
 # https://github.com/junegunn/vim-plug
-sudo apt install curl
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+
+### Tmux
+
+```bash
+# Install the Tmux Plugin Manager
+# https://github.com/tmux-plugins/tpm
+mkdir -p ${HOME}/.config/tmux/plugins && \
+git clone https://github.com/tmux-plugins/tpm ${HOME}/.config/tmux/plugins/tpm
 ```
