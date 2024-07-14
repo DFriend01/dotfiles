@@ -62,6 +62,7 @@ alias ll='ls -l'
 alias la='ls -la'
 alias lt='ls -ltr'
 alias lat='ls -latr'
+alias groot='git rev-parse --is-inside-work-tree &>/dev/null && cd "$(git rev-parse --show-toplevel)" || echo "Not in a git repository."'
 
 # Networking Aliases
 alias ip='curl ifconfig.me'
