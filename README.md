@@ -4,6 +4,14 @@ My dotfiles managed by chezmoi.
 
 ## Required Setup Steps
 
+Install chezmoi and initialize the dotfiles:
+
+```bash
+sudo snap install chezmoi --classic
+chezmoi init DFriend01
+chezmoi -v apply
+```
+
 ### General Dependencies
 
 ```bash
@@ -13,10 +21,7 @@ sudo apt update && sudo apt install -y \
     git \
     gnupg2 \
     openssh-client \
-    snapd \
     wget
-
-sudo snap install chezmoi --classic
 ```
 
 ### Bash
