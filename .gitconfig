@@ -9,3 +9,50 @@
 	editor = vim
 [init]
 	defaultBranch = main
+[alias]
+    # from https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+    a = add
+    au = add --update
+    b = branch
+    bD = branch --delete --force
+    cl = clone --recurse-submodules
+    c = commit --verbose
+    cmsg = commit --verbose --message
+    d = diff
+    dca = diff --cached
+    l = pull
+    lg = log --stat
+    lgo = log --oneline
+    p = push
+    pf = push --force
+    rb = rebase
+    rba = rebase --abort
+    rbc = rebase --continue
+    rbi = rebase --interactive
+    ra = remote add
+    rv = remote --verbose
+    rrm = remote remove
+    rh = reset
+    rhh = reset --hard
+    rs = restore
+    rst = restore --staged
+    rm = rm
+    rmc = rm --cached
+    sta = stash push
+    stp = stash pop
+    st = status
+    su = submodule update
+    sw = switch
+    swc = switch --create
+    wt = worktree
+    wtls = worktree list
+    wtmv = worktree move
+    wtrm = worktree remove
+
+    # from https://github.com/patrick-5546/dotfiles/blob/main/dot_gitconfig.tmpl
+    cna = commit --verbose --no-edit --amend
+    psup = push --set-upstream origin
+    rbm = rebase main
+    rbom = rebase origin/main
+    rhs = reset --soft
+    swm = switch main
