@@ -1,6 +1,6 @@
 # dotfiles
 
-My dotfiles for Ubuntu/Debian.
+My dotfiles managed by chezmoi.
 
 ## Required Setup Steps
 
@@ -13,7 +13,10 @@ sudo apt update && sudo apt install -y \
     git \
     gnupg2 \
     openssh-client \
+    snapd \
     wget
+
+sudo snap install chezmoi --classic
 ```
 
 ### Bash
