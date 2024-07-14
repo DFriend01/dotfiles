@@ -1,8 +1,16 @@
 # dotfiles
 
-My dotfiles for Ubuntu/Debian.
+My dotfiles managed by chezmoi.
 
 ## Required Setup Steps
+
+Install chezmoi and initialize the dotfiles:
+
+```bash
+sudo snap install chezmoi --classic
+chezmoi init DFriend01
+chezmoi -v apply
+```
 
 ### General Dependencies
 
