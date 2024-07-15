@@ -7,21 +7,13 @@
 #umask 022
 
 # set PATH so it includes user's private .local/bin
-if [ ! -d "${HOME}/.local/bin" ] ; then
-    mkdir -p ${HOME}/.local/bin
+if [ -d "${HOME}/.local/bin" ] ; then
+    PATH="${HOME}/.local/bin:${PATH}"
 fi
-PATH="${HOME}/.local/bin:${PATH}"
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "${HOME}/bin" ] ; then
     PATH="${HOME}/bin:${PATH}"
-fi
-
-# start oh-my-posh if it exists
-if [ -f ${HOME}/.local/bin/oh-my-posh ] ; then
-    POSH_THEME="clean-detailed"
-    POSH_THEME_URL="https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/${POSH_THEME}.omp.json"
-    eval "$(oh-my-posh init bash --config ${POSH_THEME_URL})"
 fi
 
 # include .bashrc if it exists
