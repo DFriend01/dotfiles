@@ -1,1 +1,8 @@
 README.md
+
+# Windows Files
+{{ if ne .chezmoi.os "windows" -}}
+Documents
+*.ps1
+{{- end }}
+
