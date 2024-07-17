@@ -51,6 +51,7 @@ alias sshed='ssha ${HOME}/.ssh/id_ed25519'
 
 # Command Aliases
 alias c='clear'
+alias cz='chezmoi'
 alias g='git'
 alias h='history'
 alias install='sudo apt install'
