@@ -1,0 +1,100 @@
+#!/bin/bash
+
+{{ if or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu") }}
+
+apt_install_if_dne() {
+    packages_to_install=""
+
+    # Get the list of installed packages by name
+    installed_packages=$(dpkg -l | awk '{print $2}')
+
+    # Grab all uninstalled packages
+    for package in "$@"; do
+        # If the current package is not in the list of installed packages
+        if ! echo "$installed_packages" | grep -qw "$package"; then
+            echo "Package $package is not installed. Adding to install list..."
+            packages_to_install="$packages_to_install $package"
+        else
+            echo "Package $package is already installed. Skipping..."
+        fi
+    done
+
+    # Install any packages not yet on the system
+    if [ -n "$packages_to_install" ]; then
+        echo "Installing packages: $packages_to_install"
+        sudo apt install -y $packages_to_install
+    else
+        echo "All packages are already installed. Nothing to do."
+    fi
+}
+
+function check_apt_pkg() {
+    pkg=$1
+    if [ -n "$(dpkg -l | awk '{print $2}' | grep -qw $pkg)" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function check_cmd() {
+    if [ -n "$(which $1)" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function install_oh_my_posh() {
+    if ! check_cmd oh-my-posh; then
+        echo "Installing oh-my-posh..."
+        mkdir -p ${HOME}/.local/bin 
+        curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ${HOME}/.local/bin
+    fi
+}
+
+function install_gh_client() {
+    if ! check_cmd gh; then
+        echo "Installing gh client..."
+        (type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
+        && sudo mkdir -p -m 755 /etc/apt/keyrings \
+        && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+        && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+        && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+        && sudo apt update \
+        && sudo apt install gh -y \
+        && echo "Installed gh client. Remember to run 'gh auth login'"
+    fi
+}
+
+function install_neovim() {
+    if ! check_cmd nvim; then
+        echo "Installing neovim..."
+        sudo apt install -y vim neovim
+        sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    fi
+}
+
+function install_tmux_plugin_manager() {
+    if [ ! -d ${HOME}/.config/tmux/plugins/tpm ]; then
+        echo "Installing tmux plugin master..."
+        mkdir -p ${HOME}/.config/tmux/plugins
+        git clone https://github.com/tmux-plugins/tpm ${HOME}/.config/tmux/plugins/tpm
+    fi
+}
+
+# Update
+sudo apt update
+
+echo "Installing general dependencies"
+apt_install_if_dne bash-completion curl git gnupg2 openssh-client wget
+
+echo "Installing additional dependencies"
+install_oh_my_posh
+install_gh_client
+install_neovim
+install_tmux_plugin_manager
+echo "Done installing debian packages. Open a new shell for changes to take effect."
+
+{{ end }}
