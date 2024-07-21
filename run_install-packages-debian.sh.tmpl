@@ -76,7 +76,12 @@ function install_neovim() {
     fi
 }
 
-function install_tmux_plugin_manager() {
+function install_tmux() {
+    if ! check_cmd tmux; then
+        echo "Installing tmux..."
+        sudo apt install -y tmux
+    fi
+
     if [ ! -d ${HOME}/.config/tmux/plugins/tpm ]; then
         echo "Installing tmux plugin master..."
         mkdir -p ${HOME}/.config/tmux/plugins
@@ -94,7 +99,7 @@ echo "Installing additional dependencies"
 install_oh_my_posh
 install_gh_client
 install_neovim
-install_tmux_plugin_manager
+install_tmux
 echo "Done installing debian packages. Open a new shell for changes to take effect."
 
 {{ end }}
