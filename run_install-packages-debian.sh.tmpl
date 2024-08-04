@@ -93,7 +93,7 @@ function install_tmux() {
 sudo apt update
 
 echo "Installing general dependencies"
-apt_install_if_dne bash-completion curl git gnupg2 openssh-client wget
+apt_install_if_dne bash-completion build-essential curl git gnupg2 openssh-client wget
 
 echo "Installing additional dependencies"
 install_oh_my_posh
